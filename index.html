@@ -49,54 +49,54 @@ input{font-family:inherit}
 .card{background:var(--card);border-radius:18px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06),0 0 0 0.5px rgba(0,0,0,0.05)}
 
 /* HERO */
-.hero{background:var(--gd);padding:28px 20px 22px}
+.hero{background:var(--gd);padding:20px 16px 16px}
 
 /* COACH */
-.coach-row{display:flex;align-items:flex-start;gap:10px;padding:0 14px 14px}
-.coach-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#1A9E6E,#0A5C3F);
-  display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,150,80,0.3)}
-.coach-bub{border-radius:14px 14px 14px 3px;padding:11px 14px;flex:1;
+.coach-row{display:flex;align-items:flex-start;gap:8px;padding:0 12px 10px}
+.coach-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#1A9E6E,#0A5C3F);
+  display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;box-shadow:0 2px 6px rgba(0,150,80,0.25)}
+.coach-bub{border-radius:11px 11px 11px 3px;padding:9px 12px;flex:1;
   background:linear-gradient(135deg,#0A2E1F,#0F3D28)}
-.coach-who{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:#52C99A;margin-bottom:4px}
-.coach-says{font-size:13px;color:#CCF0DF;line-height:1.7}
+.coach-who{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:#52C99A;margin-bottom:3px}
+.coach-says{font-size:12px;color:#CCF0DF;line-height:1.6}
 
 /* SET ROWS */
 .set-done{display:flex;align-items:center;justify-content:space-between;
-  border-radius:11px;padding:13px 15px;margin-bottom:7px;font-size:13px;font-weight:700}
+  border-radius:9px;padding:11px 13px;margin-bottom:6px;font-size:13px;font-weight:700}
 .win{background:#E5FAF0;color:#085038}
 .ok{background:#EDF3FF;color:#1E3A8A}
 .low{background:#FFF5EE;color:#7C3200}
 
 /* INPUT BOX */
-.inp-box{background:var(--bg);border-radius:14px;padding:14px 15px;margin-bottom:7px;
+.inp-box{background:var(--bg);border-radius:12px;padding:10px 12px;margin-bottom:6px;
   border:2px solid transparent;transition:border-color 0.2s}
 .inp-box.active{border-color:var(--g);background:#fff}
-.inp-title{font-size:13px;font-weight:800;color:var(--gd);margin-bottom:11px}
-.inp-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.inp-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--ghost);margin-bottom:6px}
-.adj{width:46px;height:46px;border-radius:10px;background:var(--card);
-  border:1.5px solid #E0E0DA;font-size:24px;font-weight:600;color:var(--sub);
+.inp-title{font-size:12px;font-weight:800;color:var(--gd);margin-bottom:8px}
+.inp-row{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.inp-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--ghost);margin-bottom:4px}
+.adj{width:40px;height:40px;border-radius:8px;background:var(--card);
+  border:1.5px solid #E0E0DA;font-size:20px;font-weight:500;color:var(--sub);
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  transition:background 0.1s;box-shadow:0 1px 2px rgba(0,0,0,0.05)}
-.adj:active{background:#F0F0EC}
-.num{flex:1;padding:11px;border-radius:10px;border:1.5px solid #E0E0DA;
-  font-size:24px;font-weight:800;text-align:center;color:var(--ink);
+  transition:background 0.1s;box-shadow:0 1px 2px rgba(0,0,0,0.04)}
+.adj:active{background:#E8F5F0;border-color:var(--g)}
+.num{flex:1;padding:8px 6px;border-radius:8px;border:1.5px solid #E0E0DA;
+  font-size:18px;font-weight:800;text-align:center;color:var(--ink);
   background:var(--card);outline:none;-moz-appearance:textfield}
 .num::-webkit-inner-spin-button,.num::-webkit-outer-spin-button{-webkit-appearance:none}
 .num:focus{border-color:var(--g)}
-.log-btn{width:100%;padding:14px;border-radius:11px;background:var(--g);
-  color:#fff;font-size:15px;font-weight:800;margin-top:2px;
-  box-shadow:0 3px 12px rgba(26,158,110,0.35);
+.log-btn{width:100%;padding:12px;border-radius:10px;background:var(--g);
+  color:#fff;font-size:14px;font-weight:800;margin-top:4px;
+  box-shadow:0 2px 8px rgba(26,158,110,0.3);
   transition:transform 0.1s,box-shadow 0.1s}
-.log-btn:active{transform:scale(0.97);box-shadow:0 1px 6px rgba(26,158,110,0.25)}
+.log-btn:active{transform:scale(0.97);box-shadow:0 1px 4px rgba(26,158,110,0.2)}
 
 /* TARGET BOX */
-.target{margin:0 14px 12px;border-radius:13px;padding:13px 15px;
+.target{margin:0 12px 10px;border-radius:11px;padding:10px 13px;
   background:linear-gradient(135deg,#F0FBF5,#E3F8EE);
-  border:1px solid #B8E8D0}
-.target-kg{font-size:36px;font-weight:900;color:var(--gd);letter-spacing:-2px;line-height:1}
-.target-unit{font-size:16px;font-weight:600;letter-spacing:0}
-.target-delta{font-size:12px;font-weight:700;margin-top:5px}
+  border:1px solid #B8E8D0;display:flex;align-items:center;justify-content:space-between}
+.target-kg{font-size:26px;font-weight:900;color:var(--gd);letter-spacing:-1px;line-height:1}
+.target-unit{font-size:13px;font-weight:600;letter-spacing:0}
+.target-delta{font-size:11px;font-weight:600;color:var(--g);margin-top:2px}
 
 /* TIMER */
 .timer{background:var(--card);border-radius:16px;padding:18px;text-align:center;
@@ -104,32 +104,32 @@ input{font-family:inherit}
 .timer.done{background:var(--gl);box-shadow:0 0 0 2px var(--g)}
 
 /* PHASE CARDS */
-.phase-card{background:var(--card);border-radius:18px;padding:20px;margin-bottom:14px;
+.phase-card{background:var(--card);border-radius:14px;padding:16px;margin-bottom:12px;
   box-shadow:0 1px 4px rgba(0,0,0,0.06)}
-.step-row{display:flex;gap:13px;margin-bottom:16px;align-items:flex-start}
-.step-num{width:28px;height:28px;border-radius:50%;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;margin-top:1px;transition:all 0.3s}
-.step-txt{font-size:13px;line-height:1.7;padding-top:4px;transition:color 0.3s}
-.big-btn{width:100%;padding:16px;border-radius:14px;font-size:16px;font-weight:800;
-  color:#fff;background:var(--g);letter-spacing:-0.2px;
-  box-shadow:0 4px 14px rgba(26,158,110,0.35);
+.step-row{display:flex;gap:11px;margin-bottom:13px;align-items:flex-start}
+.step-num{width:24px;height:24px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-top:2px;transition:all 0.3s}
+.step-txt{font-size:12px;line-height:1.65;padding-top:3px;transition:color 0.3s}
+.big-btn{width:100%;padding:14px;border-radius:12px;font-size:15px;font-weight:800;
+  color:#fff;background:var(--g);letter-spacing:-0.1px;
+  box-shadow:0 3px 10px rgba(26,158,110,0.3);
   transition:transform 0.1s,box-shadow 0.1s}
-.big-btn:active{transform:scale(0.97);box-shadow:0 2px 8px rgba(26,158,110,0.2)}
+.big-btn:active{transform:scale(0.97);box-shadow:0 1px 5px rgba(26,158,110,0.2)}
 
 /* NEXT NOTE */
-.next-note{padding:11px 15px 14px;font-size:12px;line-height:1.65;
+.next-note{padding:9px 13px 11px;font-size:11px;line-height:1.6;
   background:var(--gm);border-top:0.5px solid #C8EDD8;color:#085038}
 
 /* FORM STRIP */
-.form-strip{padding:10px 15px;font-size:12px;line-height:1.65;color:#14422E;
+.form-strip{padding:8px 13px;font-size:11px;line-height:1.6;color:#14422E;
   background:#EDF9F3;border-left:3px solid var(--g)}
 
 /* EX CARD */
-.ex-card{background:var(--card);border-radius:18px;overflow:hidden;margin-bottom:14px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.06),0 0 0 0.5px rgba(0,0,0,0.04)}
-.ex-head{padding:15px 15px 10px}
-.ex-name{font-size:19px;font-weight:800;letter-spacing:-0.4px;color:var(--ink);margin-bottom:2px}
-.ex-meta{font-size:12px;color:var(--ghost);font-weight:500}
+.ex-card{background:var(--card);border-radius:14px;overflow:hidden;margin-bottom:10px;
+  box-shadow:0 1px 5px rgba(0,0,0,0.06),0 0 0 0.5px rgba(0,0,0,0.04)}
+.ex-head{padding:12px 13px 8px}
+.ex-name{font-size:16px;font-weight:800;letter-spacing:-0.3px;color:var(--ink);margin-bottom:1px}
+.ex-meta{font-size:11px;color:var(--ghost);font-weight:500}
 
 /* SPARKLINE */
 .spark{display:flex;align-items:flex-end;gap:3px;height:30px}
@@ -152,10 +152,10 @@ input{font-family:inherit}
 .pop{animation:pop 0.25s ease}
 
 /* WEEK DOTS */
-.wdot{flex:1;border-radius:12px;padding:12px 8px;text-align:center;border:1px solid #E8E8E4;background:#F5F5F2;transition:all 0.3s}
+.wdot{flex:1;border-radius:10px;padding:10px 6px;text-align:center;border:1px solid #E8E8E4;background:#F5F5F2;transition:all 0.3s}
 
 /* STAT PILL */
-.spill{flex:1;background:rgba(255,255,255,0.11);border-radius:13px;padding:12px 8px;text-align:center}
+.spill{flex:1;background:rgba(255,255,255,0.11);border-radius:10px;padding:9px 6px;text-align:center}
 
 /* UTILS */
 .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.09em}
@@ -167,19 +167,19 @@ input{font-family:inherit}
 <!-- ══ HOME ══════════════════════════════════════════════════════════════════ -->
 <div id="s-home" class="screen active">
 <div class="hero">
-  <div style="font-size:12px;color:#5DC9A0;font-weight:700;letter-spacing:0.04em;margin-bottom:8px">WEEK <span id="h-wk">1</span> &nbsp;·&nbsp; <span id="h-pct">0</span>% DONE</div>
-  <div style="font-size:28px;font-weight:900;color:#fff;letter-spacing:-0.8px;margin-bottom:18px">Your Workout</div>
-  <div style="display:flex;gap:8px;margin-bottom:18px">
-    <div class="spill"><div style="font-size:26px;font-weight:900;color:#fff" id="h-done">0</div><div style="font-size:10px;color:#7ECBA8;margin-top:2px;font-weight:600">SESSIONS</div></div>
-    <div class="spill"><div style="font-size:26px;font-weight:900;color:#fff" id="h-streak">0</div><div style="font-size:10px;color:#7ECBA8;margin-top:2px;font-weight:600">STREAK</div></div>
-    <div class="spill"><div style="font-size:26px;font-weight:900;color:#fff" id="h-left">36</div><div style="font-size:10px;color:#7ECBA8;margin-top:2px;font-weight:600">REMAINING</div></div>
+  <div style="font-size:11px;color:#5DC9A0;font-weight:700;letter-spacing:0.04em;margin-bottom:6px">WEEK <span id="h-wk">1</span> &nbsp;·&nbsp; <span id="h-pct">0</span>% DONE</div>
+  <div style="font-size:24px;font-weight:900;color:#fff;letter-spacing:-0.8px;margin-bottom:14px">Your Workout</div>
+  <div style="display:flex;gap:7px;margin-bottom:14px">
+    <div class="spill"><div style="font-size:22px;font-weight:900;color:#fff" id="h-done">0</div><div style="font-size:10px;color:#7ECBA8;margin-top:1px;font-weight:600">SESSIONS</div></div>
+    <div class="spill"><div style="font-size:22px;font-weight:900;color:#fff" id="h-streak">0</div><div style="font-size:10px;color:#7ECBA8;margin-top:1px;font-weight:600">STREAK</div></div>
+    <div class="spill"><div style="font-size:22px;font-weight:900;color:#fff" id="h-left">36</div><div style="font-size:10px;color:#7ECBA8;margin-top:1px;font-weight:600">REMAINING</div></div>
   </div>
   <div class="pbar-wrap" style="border-radius:99px"><div class="pbar" id="h-bar" style="width:0%;border-radius:99px"></div></div>
 </div>
 
-<div style="padding:16px">
-  <div id="h-next" style="margin-bottom:14px"></div>
-  <div id="h-dots" style="display:flex;gap:8px;margin-bottom:18px"></div>
+<div style="padding:12px 14px">
+  <div id="h-next" style="margin-bottom:12px"></div>
+  <div id="h-dots" style="display:flex;gap:7px;margin-bottom:14px"></div>
   <div style="background:#EEEEFF;border-left:3px solid #3A52D4;border-radius:13px;padding:13px 14px">
     <div style="font-size:11px;font-weight:700;color:#1E3A8A;margin-bottom:3px">REST DAYS · ZONE 2</div>
     <div style="font-size:12px;color:#2D4DB0;line-height:1.65">Tue · Thu · Sat — 30 to 45 min easy bike at a pace where you can hold a full conversation. This is what burns fat between sessions. Do not skip it.</div>
@@ -189,7 +189,7 @@ input{font-family:inherit}
 
 <!-- ══ SESSION ════════════════════════════════════════════════════════════════ -->
 <div id="s-session" class="screen">
-  <div class="sticky" style="padding:13px 16px;display:flex;align-items:center;gap:10px">
+  <div class="sticky" style="padding:10px 14px;display:flex;align-items:center;gap:10px">
     <button onclick="goHome()" style="font-size:22px;color:#aaa;padding:0 3px;line-height:1;transition:color 0.15s" onmouseenter="this.style.color='#555'" onmouseleave="this.style.color='#aaa'">←</button>
     <div style="flex:1">
       <div style="font-size:15px;font-weight:800;letter-spacing:-0.2px" id="ss-title"></div>
@@ -198,7 +198,7 @@ input{font-family:inherit}
     <div style="font-size:14px;font-weight:900;color:var(--g)" id="ss-pct">0%</div>
   </div>
   <div class="pbar-wrap"><div class="pbar" id="ss-bar" style="width:0%"></div></div>
-  <div style="padding:14px 14px 80px" id="ss-body"></div>
+  <div style="padding:12px 12px 80px" id="ss-body"></div>
 </div>
 
 <!-- ══ HISTORY ════════════════════════════════════════════════════════════════ -->
@@ -680,10 +680,10 @@ function renderPhase(){
     if(!allDone){
       const coachColour=a.c==="#1A9E6E"?"#52C99A":a.c==="#3A52D4"?"#8A9EF0":"#E0A060";
       html+=`<div class="coach-row">
-        <div class="coach-av" style="background:${a.grad};width:30px;height:30px;font-size:13px">🧑‍💼</div>
+        <div class="coach-av" style="background:${a.grad};width:26px;height:26px;font-size:11px">🧑‍💼</div>
         <div class="coach-bub" style="background:${a.grad}">
           <div class="coach-who" style="color:${coachColour}">Set ${curSet+1} of ${ex.sets}</div>
-          <div class="coach-says" style="font-size:12px">${ls.length>0?reactionMsg+" "+coachMsg:coachMsg}</div>
+          <div class="coach-says" style="font-size:11px">${ls.length>0?reactionMsg+" "+coachMsg:coachMsg}</div>
         </div>
       </div>`;
     }
@@ -701,14 +701,18 @@ function renderPhase(){
         :`Adjusted`
         :"Starting weight";
       html+=`<div class="target">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--g);margin-bottom:7px">Target this session</div>
-        <div class="target-kg">${sugg}<span class="target-unit"> kg</span></div>
-        <div class="target-delta" style="color:${up?"var(--g)":"var(--ghost)"}">${deltaText}</div>
+        <div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--g);margin-bottom:3px">Target</div>
+          <div class="target-kg">${sugg}<span class="target-unit"> kg</span></div>
+        </div>
+        <div style="text-align:right;max-width:55%">
+          <div class="target-delta" style="color:${up?"var(--g)":"var(--ghost)"};text-align:right">${deltaText}</div>
+        </div>
       </div>`;
     }
 
     // Sets
-    html+=`<div style="padding:0 14px 14px">`;
+    html+=`<div style="padding:0 12px 12px">`;
     for(let s=0;s<ex.sets;s++){
       const logged=ls.find(l=>l.set===s);
       const prevDone=s===0||ls.find(l=>l.set===s-1);
