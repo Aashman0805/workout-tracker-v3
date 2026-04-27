@@ -9,7 +9,7 @@
 <title>Coach</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Geist:wght@400;500;600&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* ── TOKENS ─────────────────────────────────────────────────── */
 :root {
@@ -21,9 +21,10 @@
   --ink3: #9C9890;
   --ink4: #C0BBB0;
   --rule: #D4CFC4;
+  --rule2: #C8C4BA;
   --acc:  #C9543A;
   --acc2: #A8432C;
-  --fd: "Syne", sans-serif;
+  --fd: "DM Sans", sans-serif;
   --fb: "Geist", sans-serif;
   --fn: "Barlow Condensed", "Arial Narrow", sans-serif;
   --safe-top: env(safe-area-inset-top, 0px);
@@ -40,14 +41,6 @@ body {
   font-family: var(--fb);
   color: var(--ink);
   font-size: 14px;
-  /* Notebook rule texture */
-  background-image: repeating-linear-gradient(
-    180deg,
-    transparent,
-    transparent 27px,
-    rgba(28,26,23,0.038) 27px,
-    rgba(28,26,23,0.038) 28px
-  );
 }
 
 /* ── APP SHELL ──────────────────────────────────────────────── */
@@ -824,9 +817,118 @@ body {
 .reentry-lbl { font-size: 8px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink4); margin-bottom: 3px; }
 .reentry-txt { font-size: 11px; color: var(--ink2); line-height: 1.6; }
 
+/* ── SECTION DEMARCATION ─────────────────────────────────────── */
+/* Surfaces that create hierarchy without lines */
+.surface       { background: var(--bg2); }
+.surface-deep  { background: var(--bg3); }
+.surface-ink   { background: var(--ink); }
+
+/* Section dividers — full-bleed rule with label */
+.section-cap {
+  padding: 10px 20px 8px;
+  background: var(--bg2);
+  border-top: 0.5px solid var(--rule);
+  border-bottom: 0.5px solid var(--rule);
+}
+.section-cap-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink4);
+}
+
+/* Inline pill badge */
+.pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.pill-ink { background: var(--ink); color: var(--bg); }
+.pill-acc { background: var(--acc); color: #fff; }
+.pill-dim { background: var(--bg3); color: var(--ink3); }
+
+/* ── ONE-PAGE EXERCISE VIEW ──────────────────────────────────── */
+.ex-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+.ex-nav-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: var(--bg2);
+  border-bottom: 0.5px solid var(--rule);
+  flex-shrink: 0;
+}
+.ex-nav-btn {
+  font-size: 18px;
+  color: var(--ink3);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-family: var(--fb);
+  border: none;
+  background: none;
+  transition: color 0.1s;
+}
+.ex-nav-btn:active { color: var(--ink); }
+.ex-nav-btn.disabled { opacity: 0.2; pointer-events: none; }
+.ex-nav-pos {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink3);
+  letter-spacing: 0.04em;
+}
+.ex-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.ex-scroll::-webkit-scrollbar { display: none; }
+
+/* ── PROGRESS TAB ────────────────────────────────────────────── */
+.prog-ex-card {
+  border-bottom: 0.5px solid var(--rule);
+  padding: 14px 20px;
+}
+.prog-ex-name {
+  font-family: var(--fd);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 2px;
+  letter-spacing: -0.1px;
+}
+.prog-ex-best {
+  font-size: 10px;
+  color: var(--ink3);
+  margin-bottom: 10px;
+}
+.prog-bars {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+  height: 36px;
+}
+.prog-bar-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.prog-bar-fill { width: 100%; border-radius: 1px; }
+.prog-bar-lbl { font-size: 8px; color: var(--ink4); font-weight: 500; }
+
 /* ── ANIMATIONS ─────────────────────────────────────────────── */
 @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
 .fu { animation: fadeUp 0.2s ease both; }
+@keyframes slideIn { from { opacity:0; transform:translateX(12px); } to { opacity:1; transform:none; } }
+.slide-in { animation: slideIn 0.18s ease both; }
 </style>
 </head>
 <body>
@@ -873,6 +975,7 @@ body {
   <div class="nav">
     <div class="nb" onclick="go('home')"><div class="nd" id="nd-home"></div><div class="nl on" id="nl-home">Today</div></div>
     <div class="nb" onclick="go('log')"><div class="nd off" id="nd-log"></div><div class="nl" id="nl-log">Log</div></div>
+    <div class="nb" onclick="go('progress')"><div class="nd off" id="nd-progress"></div><div class="nl" id="nl-progress">Progress</div></div>
     <div class="nb" onclick="go('history')"><div class="nd off" id="nd-history"></div><div class="nl" id="nl-history">History</div></div>
   </div>
 </div>
@@ -938,6 +1041,7 @@ body {
   <div class="nav">
     <div class="nb" onclick="go('home')"><div class="nd off" id="nd2-home"></div><div class="nl" id="nl2-home">Today</div></div>
     <div class="nb" onclick="go('log')"><div class="nd" id="nd2-log"></div><div class="nl on" id="nl2-log">Log</div></div>
+    <div class="nb" onclick="go('progress')"><div class="nd off" id="nd2-progress"></div><div class="nl" id="nl2-progress">Progress</div></div>
     <div class="nb" onclick="go('history')"><div class="nd off" id="nd2-history"></div><div class="nl" id="nl2-history">History</div></div>
   </div>
 </div>
@@ -958,7 +1062,28 @@ body {
   <div class="nav">
     <div class="nb" onclick="go('home')"><div class="nd off" id="nd3-home"></div><div class="nl" id="nl3-home">Today</div></div>
     <div class="nb" onclick="go('log')"><div class="nd off" id="nd3-log"></div><div class="nl" id="nl3-log">Log</div></div>
+    <div class="nb" onclick="go('progress')"><div class="nd off" id="nd3-progress"></div><div class="nl" id="nl3-progress">Progress</div></div>
     <div class="nb" onclick="go('history')"><div class="nd" id="nd3-history"></div><div class="nl on" id="nl3-history">History</div></div>
+  </div>
+</div>
+
+<!-- ══ PROGRESS ═════════════════════════════════════════════════ -->
+<div id="s-progress" class="screen">
+  <div class="topbar">
+    <span class="topbar-logo">Progress</span>
+    <span class="topbar-right" id="prog-sub-top"></span>
+  </div>
+  <div class="scroll">
+    <div style="padding:16px 20px 0;">
+      <div style="font-size:11px;color:var(--ink3);margin-bottom:16px;">Weight and reps over time. Amber = weight jumped.</div>
+    </div>
+    <div id="prog-list"></div>
+  </div>
+  <div class="nav">
+    <div class="nb" onclick="go('home')"><div class="nd off" id="nd4-home"></div><div class="nl" id="nl4-home">Today</div></div>
+    <div class="nb" onclick="go('log')"><div class="nd off" id="nd4-log"></div><div class="nl" id="nl4-log">Log</div></div>
+    <div class="nb" onclick="go('progress')"><div class="nd" id="nd4-progress"></div><div class="nl on" id="nl4-progress">Progress</div></div>
+    <div class="nb" onclick="go('history')"><div class="nd off" id="nd4-history"></div><div class="nl" id="nl4-history">History</div></div>
   </div>
 </div>
 
@@ -1140,10 +1265,12 @@ function nextChallenge() {
 }
 
 /* ══ NAV ════════════════════════════════════════════════════════ */
-const TABS = ["home","log","history"];
+const TABS = ["home","log","progress","history"];
+const NAV_ROWS = [["nd","nl"],["nd2","nl2"],["nd3","nl3"],["nd4","nl4"]];
 function go(tab) {
   TABS.forEach(t => {
     const s = document.getElementById("s-"+t);
+    if (!s) return;
     if (t === tab) {
       s.style.display = "flex";
       requestAnimationFrame(() => s.classList.add("active"));
@@ -1152,18 +1279,19 @@ function go(tab) {
       s.style.display = "none";
     }
   });
-  // Update all three nav bars
-  [["nd","nl"],["nd2","nl2"],["nd3","nl3"]].forEach(([nd,nl])=>{
-    TABS.forEach(t=>{
-      const d=document.getElementById(`${nd}-${t}`), l=document.getElementById(`${nl}-${t}`);
-      if(!d||!l) return;
-      d.classList.toggle("off", t!==tab);
-      l.classList.toggle("on", t===tab);
+  NAV_ROWS.forEach(([nd,nl]) => {
+    TABS.forEach(t => {
+      const d = document.getElementById(`${nd}-${t}`);
+      const l = document.getElementById(`${nl}-${t}`);
+      if (!d || !l) return;
+      d.classList.toggle("off", t !== tab);
+      l.classList.toggle("on", t === tab);
     });
   });
-  if (tab==="home")    rHome();
-  if (tab==="log")     rLog();
-  if (tab==="history") rHistory();
+  if (tab==="home")     rHome();
+  if (tab==="log")      rLog();
+  if (tab==="progress") rProgress();
+  if (tab==="history")  rHistory();
 }
 function goHome() {
   document.getElementById("s-session").classList.remove("active");
@@ -1267,7 +1395,7 @@ function startSession() {
     const agIds = t>=30 ? SESSIONS[type].agility : [];
     const end   = t>=45 ? SESSIONS[type].endurance : null;
     const week  = Math.min(Math.floor(S.hist.length/12)+1,12);
-    sess = {type, ts:Date.now(), dur:t, exIds, agIds, end, exLogs:{}, phase:"agility", week};
+    sess = {type, ts:Date.now(), dur:t, exIds, agIds, end, exLogs:{}, phase:"agility", week, exIdx:0};
   }
   clearInterval(tIv); tExId=null;
   TABS.forEach(t => {
@@ -1339,73 +1467,102 @@ function rPhase() {
       </div>`;
     });
     const next = sess.dur<30?"anchors":"strength";
+    if (next==="strength") sess.exIdx = 0;
     html += `<button class="phase-btn" onclick="sess.phase='${next}';rPhase()">Done → ${next==="anchors"?"Anchors":"Strength"}</button>`;
     body.innerHTML = html; updProg(); return;
   }
 
-  /* STRENGTH */
+  /* STRENGTH — one exercise per page */
   if (sess.phase==="strength") {
-    const totalSets = sess.exIds.reduce((s,id)=>s+(EX[id]?.sets||0),0);
-    const doneSets  = sess.exIds.reduce((s,id)=>s+((sess.exLogs[id]?.sets||[]).length),0);
-    let html = "";
-    sess.exIds.forEach(id=>{
-      const ex = EX[id]; if(!ex) return;
-      const ls = (sess.exLogs[id]||{sets:[]}).sets||[];
-      const isBW=!!ex.bw, allDone=ls.length>=ex.sets, cur=ls.length;
-      const sugg=getSugg(ex,id), prev=getPrev(ex,id);
-      const coach=ex.coach[Math.min(cur,ex.coach.length-1)];
-      let react="";
-      if(ls.length){ const last=ls[ls.length-1]; react=last.r>=ex.rr[1]?"Top of range — match it. ":last.r>=ex.rr[0]?`${last.r} reps — push for ${last.r+1}. `:`${last.r} reps — below target. `; }
+    if (sess.exIdx === undefined) sess.exIdx = 0;
+    const exIds = sess.exIds;
+    const idx = sess.exIdx;
+    const id = exIds[idx];
+    const ex = EX[id];
+    if (!ex) { sess.exIdx++; rPhase(); return; }
 
-      html += `<div class="ex-header">
-        <div class="ex-index">${String(sess.exIds.indexOf(id)+1).padStart(2,"0")} / ${String(sess.exIds.length).padStart(2,"0")}</div>
-        <div class="ex-name">${ex.name}</div>
-        <div class="ex-meta">${ex.sets} sets · ${ex.rr[0]}–${ex.rr[1]} reps${!isBW?" · "+ex.wl:""}</div>
-      </div>`;
-
-      if (!isBW) {
-        const up=prev&&sugg>prev.w, same=prev&&sugg===prev.w;
-        const delta = prev ? (up?`↑ ${(sugg-prev.w).toFixed(1)} kg from last session`:(same?`Same — hit all ${ex.rr[1]} reps to unlock next jump`:"Adjusted")) : "Starting weight";
-        html += `<div class="target-block">
-          <div class="target-lbl">Target this set</div>
-          <div class="target-row">
-            <div class="target-num">${sugg}</div>
-            <div class="target-unit">kg</div>
-            <div class="target-delta${up?" up":""}">${delta}</div>
-          </div>
-        </div>`;
-      }
-
-      if (!allDone) html += `<div class="coach-block">
-        <div class="coach-lbl">Coach · Set ${cur+1} of ${ex.sets}</div>
-        <div class="coach-txt">${react}${coach}</div>
-      </div>`;
-
-      html += `<div class="cue-txt">${ex.cue}</div>`;
-      html += `<div class="sets-area">`;
-      for(let s=0;s<ex.sets;s++){
-        const logged=ls.find(l=>l.set===s), prevDone=s===0||ls.find(l=>l.set===s-1);
-        if(logged){ const win=logged.r>=ex.rr[1],ok=logged.r>=ex.rr[0]&&!win; html+=`<div class="set-row${win||ok?" done":""}">`+`<span>Set ${s+1}</span><span>${isBW?"":logged.w+"kg · "}${logged.r} reps${win?" ✓":""}</span></div>`; }
-        else if(prevDone&&s===ls.length){
-          html+=`<div class="inp-area"><span class="inp-lbl">Log set ${s+1}</span>`;
-          if(!isBW) html+=`<span class="inp-lbl">Weight (kg)</span><div class="inp-row"><button class="adj" onclick="adj('w${id}${s}',-2.5)">−</button><input class="num-input" type="number" id="w${id}${s}" value="${sugg}" step="0.5" min="0" inputmode="decimal"><button class="adj" onclick="adj('w${id}${s}',2.5)">+</button></div>`;
-          html+=`<span class="inp-lbl">Reps</span><div class="inp-row"><button class="adj" onclick="adj('r${id}${s}',-1)">−</button><input class="num-input" type="number" id="r${id}${s}" value="${ex.rr[1]}" step="1" min="0" inputmode="numeric"><button class="adj" onclick="adj('r${id}${s}',1)">+</button></div><button class="log-set-btn" onclick="logSet('${id}',${s},${isBW?1:0},${ex.rest})">Log set ${s+1}</button></div>`;
-        } else if(s>ls.length) html+=`<div class="set-row pend"><span>Set ${s+1}</span><span style="font-size:10px;">complete set ${s} first</span></div>`;
-      }
-      html+=`</div><div id="tmr-${id}"></div>`;
-      if(allDone){
-        const allWin=ls.slice(0,ex.sets).every(s=>s.r>=ex.rr[1]);
-        const msg=allWin&&!isBW&&ex.inc?`Next session: ${sugg+ex.inc} kg — every rep hit.`:allWin?(ex.note||"All sets done."):`Same weight (${sugg} kg). Build the reps.`;
-        html+=`<div class="comp-note${allWin&&!isBW&&ex.inc?" up":""}">${msg}</div>`;
-      }
-    });
-    if(doneSets>=totalSets){
-      const next=sess.end?"endurance":"anchors";
-      html+=`<button class="phase-btn${sess.end?"":" acc"}" onclick="sess.phase='${next}';rPhase()">All sets done → ${sess.end?"Endurance":"Anchors"}</button>`;
+    const ls = (sess.exLogs[id]||{sets:[]}).sets||[];
+    const isBW = !!ex.bw;
+    const allDone = ls.length >= ex.sets;
+    const cur = ls.length;
+    const sugg = getSugg(ex,id);
+    const prev = getPrev(ex,id);
+    const coach = ex.coach[Math.min(cur,ex.coach.length-1)];
+    let react = "";
+    if (ls.length) {
+      const last = ls[ls.length-1];
+      react = last.r>=ex.rr[1] ? "Top of range — match it. " : last.r>=ex.rr[0] ? `${last.r} reps — push for ${last.r+1}. ` : `${last.r} reps — below target. `;
     }
-    html+=`<div id="g-tmr" style="margin-bottom:20px;"></div>`;
-    body.innerHTML=html; updProg();
-    if(tExId&&tLeft>0) tickTimer();
+    const isLast = idx >= exIds.length - 1;
+
+    let html = `<div class="ex-page slide-in">
+      <div class="ex-nav-strip">
+        <button class="ex-nav-btn${idx===0?" disabled":""}" onclick="exNav(-1)">←</button>
+        <div class="ex-nav-pos">${idx+1} / ${exIds.length}</div>
+        <button class="ex-nav-btn${isLast?" disabled":""}" onclick="exNav(1)">→</button>
+      </div>
+      <div class="ex-scroll">
+        <div style="padding:16px 20px 12px;border-bottom:0.5px solid var(--rule);">
+          <div style="font-size:9px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink4);margin-bottom:5px;">${ex.sets} sets · ${ex.rr[0]}–${ex.rr[1]} reps${!isBW?" · "+ex.wl:""}</div>
+          <div class="ex-name">${ex.name}</div>
+        </div>`;
+
+    if (!isBW) {
+      const up = prev&&sugg>prev.w, same = prev&&sugg===prev.w;
+      const delta = prev ? (up ? `↑ ${(sugg-prev.w).toFixed(1)} kg` : same ? `Same — hit ${ex.rr[1]} reps to progress` : "Adjusted") : "Starting weight";
+      html += `<div class="target-block">
+        <div class="target-lbl">Target</div>
+        <div class="target-row">
+          <div class="target-num">${sugg}</div>
+          <div class="target-unit">kg</div>
+          <div class="target-delta${up?" up":""}">${delta}</div>
+        </div>
+      </div>`;
+    }
+
+    if (!allDone) html += `<div style="padding:11px 20px;background:var(--bg2);border-bottom:0.5px solid var(--rule);">
+      <div style="font-size:8px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--acc);margin-bottom:4px;">Coach · Set ${cur+1} of ${ex.sets}</div>
+      <div style="font-size:12px;color:var(--ink2);line-height:1.65;">${react}${coach}</div>
+    </div>`;
+
+    html += `<div style="padding:10px 20px;border-bottom:0.5px solid var(--rule);">
+      <div style="font-size:8px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink4);margin-bottom:3px;">Form</div>
+      <div style="font-size:11px;color:var(--ink3);line-height:1.6;font-style:italic;">${ex.cue}</div>
+    </div>`;
+
+    for (let s=0; s<ex.sets; s++) {
+      const logged = ls.find(l=>l.set===s);
+      const prevDone = s===0 || ls.find(l=>l.set===s-1);
+      if (logged) {
+        const win = logged.r>=ex.rr[1], ok = logged.r>=ex.rr[0]&&!win;
+        html += `<div class="set-row${win||ok?" done":""}"><span>Set ${s+1}</span><span>${isBW?"":logged.w+"kg · "}${logged.r} reps${win?" ✓":""}</span></div>`;
+      } else if (prevDone && s===ls.length) {
+        html += `<div class="inp-area"><span class="inp-lbl" style="margin-bottom:8px;display:block;">Log set ${s+1}</span>`;
+        if (!isBW) html += `<span class="inp-lbl">Weight (kg)</span><div class="inp-row"><button class="adj" onclick="adj('w${id}${s}',-2.5)">−</button><input class="num-input" type="number" id="w${id}${s}" value="${sugg}" step="0.5" min="0" inputmode="decimal"><button class="adj" onclick="adj('w${id}${s}',2.5)">+</button></div>`;
+        html += `<span class="inp-lbl">Reps</span><div class="inp-row"><button class="adj" onclick="adj('r${id}${s}',-1)">−</button><input class="num-input" type="number" id="r${id}${s}" value="${ex.rr[1]}" step="1" min="0" inputmode="numeric"><button class="adj" onclick="adj('r${id}${s}',1)">+</button></div><button class="log-set-btn" onclick="logSet('${id}',${s},${isBW?1:0},${ex.rest})">Log set ${s+1}</button></div>`;
+      } else if (s > ls.length) {
+        html += `<div class="set-row pend"><span>Set ${s+1}</span><span style="font-size:10px;">complete set ${s} first</span></div>`;
+      }
+    }
+
+    html += `<div id="tmr-${id}"></div>`;
+    if (allDone) {
+      const allWin = ls.slice(0,ex.sets).every(s=>s.r>=ex.rr[1]);
+      const msg = allWin&&!isBW&&ex.inc ? `Next session: ${sugg+ex.inc} kg — every rep hit.` : allWin ? "All sets done." : `Same weight (${sugg} kg). Build the reps.`;
+      html += `<div class="comp-note${allWin&&!isBW&&ex.inc?" up":""}">${msg}</div>`;
+    }
+    html += `<div style="padding:14px 20px 30px;">`;
+    if (allDone && !isLast) {
+      html += `<button class="phase-btn acc" onclick="exNav(1)">Next: ${EX[exIds[idx+1]]?.name||"next"} →</button>`;
+    } else if (allDone && isLast) {
+      const next = sess.end ? "endurance" : "anchors";
+      html += `<button class="phase-btn acc" onclick="sess.phase='${next}';sess.exIdx=0;rPhase()">All exercises done → ${sess.end?"Endurance":"Anchors"}</button>`;
+    }
+    html += `</div></div></div>`;
+
+    body.innerHTML = html;
+    updProg();
+    if (tExId && tLeft > 0) tickTimer();
     return;
   }
 
@@ -1522,6 +1679,14 @@ function logSet(exId,si,isBW,rest){
   const ex=EX[exId]; if(ex&&si<ex.sets-1) startTimer(exId,rest);
   rPhase();
 }
+function exNav(dir) {
+  if (!sess) return;
+  const next = (sess.exIdx||0) + dir;
+  if (next < 0 || next >= sess.exIds.length) return;
+  sess.exIdx = next;
+  clearInterval(tIv); tExId = null;
+  rPhase();
+}
 function finishSess(){
   if(!sess) return;
   S.hist.push({sType:sess.type,ts:sess.ts,dur:sess.dur,exLogs:sess.exLogs,isChallenge:false});
@@ -1584,6 +1749,86 @@ function rLog(){
     const d=new Date(e.ts).toLocaleDateString("en-GB",{day:"numeric",month:"short"});
     return `<div class="recent-item"><div><div class="recent-name">${name}</div><div class="recent-meta">${meta}</div></div><div class="recent-date">${d}</div></div>`;
   }).join("");
+}
+
+/* ══ PROGRESS ═══════════════════════════════════════════════════ */
+function rProgress() {
+  const tracked = [
+    {id:"pullup",      label:"Pull-up",             bw:true},
+    {id:"floor_press", label:"Floor press"},
+    {id:"rdl",         label:"Romanian DL"},
+    {id:"goblet",      label:"Goblet squat"},
+    {id:"sumo",        label:"Sumo deadlift"},
+    {id:"db_row",      label:"Single-arm row"},
+    {id:"split_squat", label:"Bulgarian split squat"},
+    {id:"db_swing",    label:"DB swing"},
+    {id:"inv_row",     label:"Inverted row",         bw:true},
+    {id:"lat_raise",   label:"Lateral raise"},
+    {id:"farmers",     label:"Farmer's carry"},
+    {id:"oh_press",    label:"OH press"},
+  ];
+
+  const sessCount = S.hist.filter(h=>!h.isChallenge).length;
+  document.getElementById("prog-sub-top").textContent = `${sessCount} sessions`;
+
+  const listEl = document.getElementById("prog-list");
+  if (!S.hist.length) {
+    listEl.innerHTML = `<div style="padding:20px;font-size:12px;color:var(--ink4);">Complete sessions to see progress here.</div>`;
+    return;
+  }
+
+  let html = "";
+  tracked.forEach(t => {
+    const isBW = !!t.bw;
+    // Collect all logged sets for this exercise across history
+    const pts = [];
+    S.hist.forEach(h => {
+      const el = h.exLogs?.[t.id];
+      if (!el?.sets?.length) return;
+      const maxW = Math.max(...el.sets.map(s=>s.w||0));
+      const maxR = Math.max(...el.sets.map(s=>s.r||0));
+      if (maxR > 0) pts.push({ w: maxW, r: maxR, ts: h.ts });
+    });
+    if (!pts.length) return;
+
+    const recent = pts.slice(-8);
+    const latest = recent[recent.length-1];
+    const first  = recent[0];
+    const maxR   = Math.max(...recent.map(p=>p.r), 1);
+    const maxW   = Math.max(...recent.map(p=>p.w), 1);
+    const wUp    = !isBW && latest.w > first.w;
+    const rUp    = latest.r > first.r;
+
+    // Spark bars
+    const bars = recent.map((p,i) => {
+      const prevW  = i>0 ? recent[i-1].w : p.w;
+      const jumped = !isBW && p.w > prevW;
+      const height = Math.max(6, Math.round((p.r/maxR)*36));
+      const bg     = i===recent.length-1 ? "var(--ink)" : jumped ? "var(--acc)" : "var(--rule2,#C8C4BA)";
+      return `<div class="prog-bar-wrap">
+        <div class="prog-bar-fill" style="height:${height}px;background:${bg};"></div>
+        <div class="prog-bar-lbl">${p.r}</div>
+      </div>`;
+    }).join("");
+
+    html += `<div class="prog-ex-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+        <div>
+          <div class="prog-ex-name">${t.label}</div>
+          <div class="prog-ex-best">${pts.length} session${pts.length!==1?"s":""} logged${!isBW?` · best ${latest.w} kg`:""}</div>
+        </div>
+        <div style="text-align:right;">
+          ${!isBW ? `<div style="font-family:var(--fn);font-size:28px;font-weight:900;color:${wUp?"var(--acc)":"var(--ink)"};line-height:1;">${latest.w}<span style="font-size:13px;color:var(--ink4);"> kg</span></div>` : `<div style="font-size:11px;color:var(--ink3);">Bodyweight</div>`}
+          <div style="font-size:10px;color:${rUp?"var(--acc)":"var(--ink3)"};margin-top:2px;">Best: ${latest.r} reps</div>
+        </div>
+      </div>
+      <div class="prog-bars">${bars}</div>
+      ${!isBW?`<div style="font-size:9px;color:var(--ink4);margin-top:6px;">Rep history · last ${recent.length} sessions · amber = weight jumped</div>`:""}
+    </div>`;
+  });
+
+  if (!html) html = `<div style="padding:20px;font-size:12px;color:var(--ink4);">Log some sets to see lift charts here.</div>`;
+  listEl.innerHTML = html;
 }
 
 /* ══ HISTORY ════════════════════════════════════════════════════ */
