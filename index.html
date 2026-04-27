@@ -423,7 +423,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 9px 0;
+  padding: 11px 20px;
   border-bottom: 0.5px solid var(--rule);
   font-size: 12px;
   font-weight: 600;
@@ -432,12 +432,12 @@ body {
 .set-row.active { color: var(--acc); }
 .set-row.pend { color: var(--ink4); font-weight: 500; }
 
-/* Input area */
+/* Input area — flush with set rows, same horizontal padding */
 .inp-area {
-  margin: 10px 20px;
+  padding: 14px 20px;
   background: var(--bg2);
-  border-radius: 2px;
-  padding: 12px 13px;
+  border-top: 0.5px solid var(--rule);
+  border-bottom: 0.5px solid var(--rule);
 }
 .inp-lbl {
   font-size: 8px;
@@ -1022,6 +1022,10 @@ body {
         </div>
       </div>
       <div class="form-group">
+        <span class="form-label">Date</span>
+        <input id="act-date" class="form-select" type="date" style="color:var(--ink);font-size:14px;font-weight:500;">
+      </div>
+      <div class="form-group">
         <span class="form-label">Duration (minutes)</span>
         <input id="act-dur" class="form-num" type="number" value="60" min="5" max="300" step="5" inputmode="numeric">
       </div>
@@ -1495,16 +1499,19 @@ function rPhase() {
     }
     const isLast = idx >= exIds.length - 1;
 
+    const isSkipped = sess.skipped && sess.skipped.includes(id);
     let html = `<div class="ex-page slide-in">
       <div class="ex-nav-strip">
         <button class="ex-nav-btn${idx===0?" disabled":""}" onclick="exNav(-1)">←</button>
         <div class="ex-nav-pos">${idx+1} / ${exIds.length}</div>
+        <button class="ex-nav-btn" onclick="skipEx('${id}')" style="font-size:11px;font-weight:600;color:var(--ink3);letter-spacing:.04em;">Skip</button>
         <button class="ex-nav-btn${isLast?" disabled":""}" onclick="exNav(1)">→</button>
       </div>
       <div class="ex-scroll">
         <div style="padding:16px 20px 12px;border-bottom:0.5px solid var(--rule);">
           <div style="font-size:9px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink4);margin-bottom:5px;">${ex.sets} sets · ${ex.rr[0]}–${ex.rr[1]} reps${!isBW?" · "+ex.wl:""}</div>
           <div class="ex-name">${ex.name}</div>
+          ${isSkipped ? `<div style="margin-top:6px;display:inline-block;padding:2px 8px;background:var(--bg3);border-radius:2px;font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);">Skipped</div>` : ""}
         </div>`;
 
     if (!isBW) {
@@ -1530,6 +1537,7 @@ function rPhase() {
       <div style="font-size:11px;color:var(--ink3);line-height:1.6;font-style:italic;">${ex.cue}</div>
     </div>`;
 
+    /* Sets — each row self-padded */
     for (let s=0; s<ex.sets; s++) {
       const logged = ls.find(l=>l.set===s);
       const prevDone = s===0 || ls.find(l=>l.set===s-1);
@@ -1537,7 +1545,7 @@ function rPhase() {
         const win = logged.r>=ex.rr[1], ok = logged.r>=ex.rr[0]&&!win;
         html += `<div class="set-row${win||ok?" done":""}"><span>Set ${s+1}</span><span>${isBW?"":logged.w+"kg · "}${logged.r} reps${win?" ✓":""}</span></div>`;
       } else if (prevDone && s===ls.length) {
-        html += `<div class="inp-area"><span class="inp-lbl" style="margin-bottom:8px;display:block;">Log set ${s+1}</span>`;
+        html += `<div class="inp-area"><div style="font-size:8px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink4);margin-bottom:12px;">Log set ${s+1}</div>`;
         if (!isBW) html += `<span class="inp-lbl">Weight (kg)</span><div class="inp-row"><button class="adj" onclick="adj('w${id}${s}',-2.5)">−</button><input class="num-input" type="number" id="w${id}${s}" value="${sugg}" step="0.5" min="0" inputmode="decimal"><button class="adj" onclick="adj('w${id}${s}',2.5)">+</button></div>`;
         html += `<span class="inp-lbl">Reps</span><div class="inp-row"><button class="adj" onclick="adj('r${id}${s}',-1)">−</button><input class="num-input" type="number" id="r${id}${s}" value="${ex.rr[1]}" step="1" min="0" inputmode="numeric"><button class="adj" onclick="adj('r${id}${s}',1)">+</button></div><button class="log-set-btn" onclick="logSet('${id}',${s},${isBW?1:0},${ex.rest})">Log set ${s+1}</button></div>`;
       } else if (s > ls.length) {
@@ -1687,6 +1695,23 @@ function exNav(dir) {
   clearInterval(tIv); tExId = null;
   rPhase();
 }
+function skipEx(id) {
+  if (!sess) return;
+  if (!sess.skipped) sess.skipped = [];
+  if (!sess.skipped.includes(id)) sess.skipped.push(id);
+  // Move to next exercise if available
+  const next = (sess.exIdx||0) + 1;
+  if (next < sess.exIds.length) {
+    sess.exIdx = next;
+  } else {
+    // All remaining skipped — go to next phase
+    const nextPhase = sess.end ? "endurance" : "anchors";
+    sess.phase = nextPhase;
+    sess.exIdx = 0;
+  }
+  clearInterval(tIv); tExId = null;
+  rPhase();
+}
 function finishSess(){
   if(!sess) return;
   S.hist.push({sType:sess.type,ts:sess.ts,dur:sess.dur,exLogs:sess.exLogs,isChallenge:false});
@@ -1733,13 +1758,21 @@ function setInt(v,btn){
 function saveAct(){
   const type=document.getElementById("act-type").value;
   const dur=parseInt(document.getElementById("act-dur").value)||60;
-  S.acts.push({type,label:ACTS_MAP[type].label,dur,intensity:actInt,ts:Date.now()});
+  const dateVal=document.getElementById("act-date").value;
+  const ts=dateVal ? new Date(dateVal+"T12:00:00").getTime() : Date.now();
+  S.acts.push({type,label:ACTS_MAP[type].label,dur,intensity:actInt,ts});
   save(); rLog(); rStats(); rBars();
   const btn=document.getElementById("log-save-btn");
   btn.textContent="Saved ✓"; btn.style.background="var(--ink)";
   setTimeout(()=>{ btn.textContent="Save"; btn.style.background=""; },1500);
 }
 function rLog(){
+  // Set date input to today if empty
+  const dateEl=document.getElementById("act-date");
+  if(dateEl&&!dateEl.value){
+    const now=new Date();
+    dateEl.value=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
+  }
   const el=document.getElementById("log-recent");
   const all=[...S.hist.map(h=>({...h,_t:"sess"})),...S.acts.map(a=>({...a,_t:"act"}))].sort((a,b)=>b.ts-a.ts).slice(0,6);
   if(!all.length){ el.innerHTML=`<div style="font-size:12px;color:var(--ink4);padding:12px 0;">Nothing logged yet.</div>`; return; }
