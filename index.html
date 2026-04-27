@@ -1128,6 +1128,7 @@ function reasonText(type) {
 }
 
 function shouldChallenge(t) {
+  if (S.hist.filter(h=>!h.isChallenge).length < 8) return false;
   const ax = allAxes();
   const fresh = Object.values(ax).every(v=>v<4);
   const weeks = (Date.now() - (S.lastChallenge||0)) / (7*86400000);
@@ -1143,9 +1144,13 @@ const TABS = ["home","log","history"];
 function go(tab) {
   TABS.forEach(t => {
     const s = document.getElementById("s-"+t);
-    s.classList.toggle("active", t===tab);
-    if (t===tab) { s.style.display="flex"; requestAnimationFrame(()=>s.classList.add("active")); }
-    else s.classList.remove("active");
+    if (t === tab) {
+      s.style.display = "flex";
+      requestAnimationFrame(() => s.classList.add("active"));
+    } else {
+      s.classList.remove("active");
+      s.style.display = "none";
+    }
   });
   // Update all three nav bars
   [["nd","nl"],["nd2","nl2"],["nd3","nl3"]].forEach(([nd,nl])=>{
@@ -1160,7 +1165,11 @@ function go(tab) {
   if (tab==="log")     rLog();
   if (tab==="history") rHistory();
 }
-function goHome() { go("home"); }
+function goHome() {
+  document.getElementById("s-session").classList.remove("active");
+  document.getElementById("s-session").style.display = "none";
+  go("home");
+}
 function closeModal(e) {
   if (e.target===document.getElementById("modal")) document.getElementById("modal").classList.remove("open");
 }
@@ -1261,10 +1270,14 @@ function startSession() {
     sess = {type, ts:Date.now(), dur:t, exIds, agIds, end, exLogs:{}, phase:"agility", week};
   }
   clearInterval(tIv); tExId=null;
-  document.getElementById("s-home").classList.remove("active");
-  document.getElementById("s-home").style.display="none";
-  document.getElementById("s-session").style.display="flex";
-  requestAnimationFrame(()=>document.getElementById("s-session").classList.add("active"));
+  TABS.forEach(t => {
+    const s = document.getElementById("s-"+t);
+    s.classList.remove("active");
+    s.style.display = "none";
+  });
+  const ss = document.getElementById("s-session");
+  ss.style.display = "flex";
+  requestAnimationFrame(() => ss.classList.add("active"));
   rSess();
 }
 
@@ -1475,7 +1488,10 @@ function rChallenge(body){
 function finishChallenge(){
   const score=document.getElementById("chal-score")?.value||"—";
   S.hist.push({sType:"full",ts:sess.ts,dur:sess.dur,exLogs:{},isChallenge:true,chalId:sess.chalId,chalScore:score});
-  S.lastChallenge=Date.now(); sess=null; save(); go("home");
+  S.lastChallenge=Date.now(); sess=null;
+  document.getElementById("s-session").classList.remove("active");
+  document.getElementById("s-session").style.display="none";
+  save(); go("home");
 }
 
 /* ══ PROGRESSION ════════════════════════════════════════════════ */
@@ -1509,7 +1525,10 @@ function logSet(exId,si,isBW,rest){
 function finishSess(){
   if(!sess) return;
   S.hist.push({sType:sess.type,ts:sess.ts,dur:sess.dur,exLogs:sess.exLogs,isChallenge:false});
-  sess=null; clearInterval(tIv); tExId=null; save(); go("home");
+  sess=null; clearInterval(tIv); tExId=null;
+  document.getElementById("s-session").classList.remove("active");
+  document.getElementById("s-session").style.display="none";
+  save(); go("home");
 }
 
 /* ══ TIMER ══════════════════════════════════════════════════════ */
